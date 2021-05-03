@@ -1,0 +1,25 @@
+<%= form_for @user do |f| %>
+  <div class="flex">
+    <div class="half-width">
+      <%= f.label :firstname %>
+      <%= f.text_field :firstname, class: "form-control" %>
+    </div>
+    <div class="half-width">
+      <%= f.label :lastname %>
+      <%= f.text_field :lastname, class: "form-control" %>
+    </div>
+  </div>
+  <div>
+    <%= f.label :email %>
+    <%= f.label :email, class: "form-control" %>
+  </div>
+  <div>
+    <%= f.label :address %>
+    <%= f.text_field :address, class: "form-control" %>
+  </div>
+  <div>
+    <%= f.label :contact %>
+    <%= f.text_field :contact, class: "form-control" %>
+  </div>
+  <%= f.submit class: "btn btn-dark mt-3" %>
+<% end %>

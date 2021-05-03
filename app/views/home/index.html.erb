@@ -1,0 +1,5 @@
+<% if user_session.nil? %>
+	<%= render "shared/home" %>
+<% else %>
+	<p class="display-1"> welcome, <%= current_user.type_of %> </p>
+<% end %>

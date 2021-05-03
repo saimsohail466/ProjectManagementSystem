@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  description: MyText
+  question: MyText
+  start_date: 2021-05-01
+  deadline: 2021-05-01
+  user: one
+  client: one
+
+two:
+  title: MyString
+  description: MyText
+  question: MyText
+  start_date: 2021-05-01
+  deadline: 2021-05-01
+  user: two
+  client: two

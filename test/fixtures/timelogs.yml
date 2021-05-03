@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  project: one
+  date_of_log: MyString
+  user: one
+  working_hours: 1
+  task_name: MyString
+  task_description: MyText
+
+two:
+  project: two
+  date_of_log: MyString
+  user: two
+  working_hours: 1
+  task_name: MyString
+  task_description: MyText

@@ -1,0 +1,61 @@
+<div class="container">
+  <h2>Sign up</h2>
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%= render "devise/shared/error_messages", resource: resource %>
+  
+  <div class="flex">
+    <div class="half-width">
+      <%= f.label :firstname %>
+      <%= f.text_field :firstname, class: "form-control", autofocus: true %>
+    </div>
+
+    <div class="half-width">
+      <%= f.label :lastname %>
+      <%= f.text_field :lastname, class: "form-control"%>
+    </div>
+  </div>
+
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.email_field :email, class: "form-control", autocomplete: "email" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password %>
+    <% if @minimum_password_length %>
+    <em>(<%= @minimum_password_length %> characters minimum)</em>
+    <% end %><br />
+    <%= f.password_field :password, class: "form-control", autocomplete: "new-password" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password_confirmation %><br />
+    <%= f.password_field :password_confirmation, class: "form-control", autocomplete: "new-password" %>
+  </div>
+
+  <div>
+    <%= f.label :contact %>
+    <%= f.text_field :contact, class: "form-control" %>
+  </div>
+
+  <div>
+    <%= f.label :address %>
+    <%= f.text_field :address, class: "form-control" %>
+  </div>
+
+  <div>
+    <%= f.hidden_field :type_of %>
+  </div>
+
+  <div>
+    <%= f.hidden_field :status %>
+  </div>
+
+  <div class="actions mt-2 mb-2">
+    <%= f.submit "Sign up", class: "btn btn-dark" %>
+  </div>
+<% end %>
+
+<%= render "devise/shared/links" %>
+
+</div>
