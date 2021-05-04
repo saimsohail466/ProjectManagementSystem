@@ -1,0 +1,31 @@
+<div class="container">
+  <h3>Projects</h3>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Start date</th>
+        <th>Dead Line</th>
+        <th>Manager</th>
+        <th>Comments</th>
+        <th>Payments</th>
+        <th>Working Hours</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @projects.each do |project| %>
+        <tr>
+          <td> <%= project.title %> </td>
+          <td> <%= project.description %> </td>
+          <td> <%= project.start_date %> </td>
+          <td> <%= project.deadline %> </td>
+          <td> <%= project.user.full_name  %> </td>
+          <td> <%= project.comments.count %> </td>
+          <td> <%= project.payments.count("amount") %> </td>
+          <td> <%= project.timelogs.count("working_hours") %> </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

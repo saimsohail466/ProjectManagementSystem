@@ -16,6 +16,7 @@
 .flex {
 	display: flex;
 	justify-content: space-between;
+  align-items: flex-start;
 }
 
 .half-width {
@@ -30,4 +31,14 @@ a {
 a:hover {
   color: black;
   text-decoration: none;
+}
+
+@media screen and (max-width: 900px) {
+  .flex {
+    flex-direction: column;
+  }
+
+  .half-width {
+    width: 90%;
+  }
 }

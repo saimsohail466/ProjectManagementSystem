@@ -1,14 +1,14 @@
 class ClientsController < ApplicationController
-  before_action :validate_user
+  before_action :validate_user, only: %i[ edit show update destroy ]
   before_action :set_client, only: %i[ show edit update destroy ]
 
   def index
-    if current_user.admin? 
+    if current_user.admin?
       @clients = Client.all
     elsif current_user.manager?
       @clients = current_user.clients  
-    else
-      redirect_to root_path, notice: "You Are not able access this page.."
+    elsif current_user.employee?
+      @clients = Client.all
     end
   end
 
@@ -59,7 +59,7 @@ class ClientsController < ApplicationController
         redirect_to root_path, notice: "You are not able to access this page.."
       end
     else
-      redirect_to root_path, notice: "You are not loged in.."
+      redirect_to root_path, notice: "You are not currently signed in.."
     end
   end
 end

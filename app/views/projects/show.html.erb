@@ -1,10 +1,60 @@
 <div class="container">
-  <div class="jumbotron mt-3">
-    <h3> Project No <%= @project.id %> </h3>
-    <h3> <%= @project.title %> </h3>
-    <p> <%= @project.description %> </p>
-    <p> <strong>Start date:</strong> <%= @project.start_date %> </p>
-    <p> <strong>Dead-line:</strong> <%= @project.deadline %> </p>
-    <%= link_to "back", client_path(params[:client_id]) , class: "btn btn-light" %>
+  <div class="jumbotron mt-3 flex">
+    <div class="half-width">
+      <h3> Project No <%= @project.id %> </h3>
+      <h3> <%= @project.title %> </h3>
+      <p> <%= @project.description %> </p>
+      <p> <strong>Start date:</strong> <%= @project.start_date %> </p>
+      <p> <strong>Dead-line:</strong> <%= @project.deadline %> </p>
+      <%= link_to "back", client_path(params[:client_id]) , class: "btn btn-light" %>
+    </div>
+    <div class="half-width p-5">
+      <h6> <strong> Total Comments  </strong> <%= @project.comments.count %> </h6>
+      <h6> <strong> Total Amount of Payments  </strong> <%= @project.payments.count(:amount) %> </h6>
+    </div>
+  </div>
+
+  <div class="container flex ">
+    <div class="half-width border-right-1 border-dark p-2">
+      <strong> Comments </strong>
+      <% if @project.comments.any? %>
+          <% @project.comments.order(:created_at, :desc).limit(5).each do |comment| %>
+             <p class="border rounded p-2 m-2 flex">
+              <span> <%= comment.user_id %> </span>
+               <%= comment.comment %>
+               <strong style="font-size: 0.8rem; ">  <%= time_ago_in_words(comment.created_at) %>  </strong>
+             </p>
+          <% end %>
+      <% else %>
+          <p class="border rounded p-2 text-danger"> empty comment box </p>    
+      <% end %>
+    </div>
+    <div class="half-width">
+      <h3> Pay-logs </h3>
+      <% if @project.timelogs.any? %>
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Date of log</th>
+                <th>Working hours</th>
+                <th>Task name</th>
+                <th>Task description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @project.timelogs.each do |timelog| %>
+              <tr>
+                <td> timelog.date_of_log </td>
+                <td> timelog.working_hours </td>
+                <td> timelog.task_name </td>
+                <td> timelog.task_description </td>
+              </tr>
+      <% end %>
+            </tbody>
+          </table>
+      <% else %>
+          <p class="border rounded p-2"> No time Log against this project </p>    
+      <% end %>
+    </div>
   </div>
 </div>

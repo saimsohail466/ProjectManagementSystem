@@ -6,7 +6,10 @@ class User < ApplicationRecord
 
   has_many :clients
   has_many :projects
-  has_many :timelogs  
+  has_many :timelogs 
+  has_many :comments
+
+  before_validation :normalize_text, on: [:create, :update]
 
  	validates :firstname, :lastname, :email, :contact, :address, :status, :type_of, presence: true
  	validates :firstname, :lastname,  format: { with: /[a-zA-Z]/, message: "should only contain alphabets"}
@@ -19,5 +22,14 @@ class User < ApplicationRecord
     if employee?
       manager!modified
     end
+  end
+
+  def normalize_text
+    self.firstname = firstname.downcase.titleize
+    self.lastname = lastname.downcase.titleize
+  end
+
+  def full_name
+    firstname + " " + lastname  
   end 
 end
