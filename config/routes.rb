@@ -4,6 +4,10 @@ Rails.application.routes.draw do
   get 'clients/index'
   devise_for :users
 
+  namespace :admin do
+    resources :clients
+  end
+
   resources :users do
     resources :clients, only: [ :new, :create ]
   end 

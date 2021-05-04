@@ -17,12 +17,7 @@ class User < ApplicationRecord
 
   def make_manager
     if employee?
-      manager!
+      manager!modified
     end
   end 
-
-	private
-
-	def validate_phone_number	
-	end
 end

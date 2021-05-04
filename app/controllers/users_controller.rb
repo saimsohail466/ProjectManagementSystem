@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-  before_action :authenticate_member!
   before_action :set_user, only: %i[ edit update destroy disable_user give_manager_rights ]
 
   def index
@@ -20,7 +19,7 @@ class UsersController < ApplicationController
 
   def destroy
     @user.destroy
-    redirect_to users_path, notice: "user destroy successfully.."
+    redirect_to users_path, notice: "User destroy successfully.."
   end
 
   def disable_user
@@ -29,7 +28,7 @@ class UsersController < ApplicationController
     else
       @user.enable!  
   	end
-    redirect_to users_path
+    redirect_to users_path, notice: "User updated successfully.."
   end
 
   def give_manager_rights
