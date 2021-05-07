@@ -6,7 +6,6 @@ class CreateProjects < ActiveRecord::Migration[5.2]
       t.text :question
       t.date :start_date
       t.date :deadline
-      t.references :user, foreign_key: true
       t.references :client, foreign_key: true
 
       t.timestamps

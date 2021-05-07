@@ -5,22 +5,29 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :clients
-  has_many :projects
   has_many :timelogs 
   has_many :comments
 
   before_validation :normalize_text, on: [:create, :update]
 
  	validates :firstname, :lastname, :email, :contact, :address, :status, :type_of, presence: true
- 	validates :firstname, :lastname,  format: { with: /[a-zA-Z]/, message: "should only contain alphabets"}
+ 	validates :firstname, :lastname,  format: {with: /[a-zA-Z]/, message: "should only contain alphabets"}
   validates :contact, telephone_number: {country: proc{:pk}, types: [:mobile, :fixed_line]} 
 
   enum status: [:disable , :enable]
-  enum type_of: [ :manager, :admin, :employee ]
+  enum type_of: [:manager, :admin, :employee]
 
   def make_manager
     if employee?
-      manager!modified
+      manager!
+    end
+  end
+
+  def get_clients
+    if admin?
+      @clients = Client.all
+    elsif manager?
+      @clients = self.clients
     end
   end
 

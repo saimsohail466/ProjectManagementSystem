@@ -25,7 +25,6 @@
 
 a {
   padding: 0.5rem;
-
 }
 
 a:hover {
@@ -33,9 +32,17 @@ a:hover {
   text-decoration: none;
 }
 
+.line {
+  line-height: 0;
+}
+
 @media screen and (max-width: 900px) {
   .flex {
     flex-direction: column;
+  }
+
+  .line {
+    line-height: 0.5;
   }
 
   .half-width {

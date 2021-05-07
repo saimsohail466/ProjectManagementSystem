@@ -1,6 +1,6 @@
 <div class="container">
   <h2>New Project</h2>
-  <%= form_with model: [client = Client.find(params[:client_id]), @project]  do |f| %>
+  <%= form_with model: [:client, @project]  do |f| %>
     <% if @project.errors.any? %>
         <ul>
           <% @project.errors.full_messages.each do |error| %>
@@ -38,7 +38,7 @@
       <%= f.text_field :question, class: "form-control" %>
     </div>
 
-    <%= f.hidden_field :client_id, value: client.id %>
+    <%= f.hidden_field :client_id, value: params[:client_id] %>
     
     <%= f.submit class: "btn btn-dark mt-3" %>
   

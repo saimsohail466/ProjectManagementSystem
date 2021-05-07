@@ -1,7 +1,5 @@
 class ProjectsController < ApplicationController
-
   before_action :find_project, only: %i[ show edit update destroy ]
-  
   
   def index
     if current_user.admin?
@@ -16,7 +14,7 @@ class ProjectsController < ApplicationController
   end
 
   def create
-    @project = current_user.projects.create(project_params)
+    @project = Project.create(project_params)
     if @project.save
       redirect_to client_project_path(params[:client_id],@project), notice: "successfully created.."
     else
@@ -24,11 +22,9 @@ class ProjectsController < ApplicationController
     end
   end
 
-  def show
-  end
+  def show; end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @project.update(project_params)
@@ -47,11 +43,10 @@ class ProjectsController < ApplicationController
   private
 
   def project_params
-     params.require(:project).permit(:title,:description,:question,:start_date,:deadline,:client_id)
+     params.require(:project).permit(:title, :description, :question, :start_date, :deadline, :client_id)
   end 
 
   def find_project
     @project = Project.find(params[:id])
   end
-
 end

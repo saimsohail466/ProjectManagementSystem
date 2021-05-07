@@ -7,10 +7,10 @@
         <th>Description</th>
         <th>Start date</th>
         <th>Dead Line</th>
-        <th>Manager</th>
         <th>Comments</th>
         <th>Payments</th>
         <th>Working Hours</th>
+        <th colspan="3">Actions</th>
       </tr>
     </thead>
     <tbody>
@@ -20,10 +20,11 @@
           <td> <%= project.description %> </td>
           <td> <%= project.start_date %> </td>
           <td> <%= project.deadline %> </td>
-          <td> <%= project.user.full_name  %> </td>
           <td> <%= project.comments.count %> </td>
           <td> <%= project.payments.count("amount") %> </td>
           <td> <%= project.timelogs.count("working_hours") %> </td>
+          <td> <%= link_to "", project_path(project), class: "fas fa-eye" %> </td>
+          <td> <%= link_to "", edit_client_project_path(project.client_id,project), class: "fas fa-edit" %> </td>
         </tr>
       <% end %>
     </tbody>

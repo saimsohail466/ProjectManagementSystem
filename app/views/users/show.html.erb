@@ -1,5 +1,6 @@
-<div class="jumbtron">
-  <%= @user.firstname %>
-  <%= @user.lastname %>
-  <%= @user.email %>
+<div class="container p-3">
+  <div class="jumbotron">
+    <h5> <%= @user.full_name %> </h5>
+    <p> <%= @user.email %> </p>
+  </div>
 </div>

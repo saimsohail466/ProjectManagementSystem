@@ -3,13 +3,7 @@ class ClientsController < ApplicationController
   before_action :set_client, only: %i[ show edit update destroy ]
 
   def index
-    if current_user.admin?
-      @clients = Client.all
-    elsif current_user.manager?
-      @clients = current_user.clients  
-    elsif current_user.employee?
-      @clients = Client.all
-    end
+   @clients = current_user.get_clients
   end
 
   def new

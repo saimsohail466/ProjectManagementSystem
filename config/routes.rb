@@ -4,6 +4,10 @@ Rails.application.routes.draw do
   get 'clients/index'
   devise_for :users
 
+  namespace :admin do
+    devise_for :users, only: :registration
+  end
+
   resources :users do
     resources :clients, only: [ :new, :create ]
   end 
@@ -12,7 +16,11 @@ Rails.application.routes.draw do
     resources :projects
   end
 
-  resources :projects, only: [ :index , :show, :destroy ]
+  resources :teams, only: [ :index, :show  ]
+
+  resources :comments
+
+  resources :projects, only: [ :index, :show, :destroy ]
 
   get '/give_manager_rights', to: "users#give_manager_rights"
   get '/disable_user', to: "users#disable_user"
