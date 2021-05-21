@@ -1,0 +1,55 @@
+<div class="container-fluid w-75 mt-4" class="">
+  <div class="alert alert-success" id="success" style="display: none;">
+    
+  </div>
+  <button type="button" class="btn btn-success fas fa-plus mb-2" data-toggle="modal" data-target="#newUserForm" >
+    New user
+  </button>
+<!-- users index -->
+  <h5>Users</h5>
+  <div id="user_index">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>First name</th>
+          <th>Last name</th>
+          <th>Email</th>
+          <th>Contact</th>
+          <th>Address</th>
+          <th>Type</th>
+          <% if current_user.admin? %>
+            <th colspan="4">Actions</th>
+          <% end %>
+        </tr>
+      </thead>
+      <tbody class="users_body">
+        <% @users.each do |user| %>
+          <%= render "user_row", user: user %>
+        <% end %>
+      </tbody>
+    </table>
+
+  </div>
+</div>
+
+<!-- edit form of user.. -->
+<div class="edit_user"></div>
+
+<!-- Modal -->
+<div class="modal fade" id="newUserForm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">New User</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div id="user_errors">
+      </div>
+      <div class="modal-body">
+          <%= render "admin/users/form", user: User.new %>
+      </div>
+    </div>
+  </div>
+</div>

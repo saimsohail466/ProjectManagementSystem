@@ -1,0 +1,32 @@
+<%= form_with model: [project, payment] do |f| %>
+  <% if payment.errors.any? %>
+      <% payment.errors.full_messages.each do |error| %>
+          <%= error %>
+      <% end %>
+  <% end %>
+  <div>
+    <%= f.label :title %>
+    <%= f.text_field :title, class: "form-control" %>
+  </div>
+
+  <div>
+    <%= f.label :description %>
+    <%= f.text_field :description, class: "form-control" %>
+  </div>
+
+  <div>
+    <%= f.label :amount %>
+    <%= f.number_field :amount, class: "form-control" %>
+  </div>
+
+  <div>
+    <%=  f.label :payment_type %> <br>
+    <%= f.radio_button :payment_type, "card" %>
+    <%= f.label "Card" %>
+    <%= f.radio_button :payment_type, "cash" %>
+    <%= f.label "Cash" %>
+  </div>
+
+  <%= f.hidden_field :project_id, value: project.id %>
+  <%= f.submit class: "btn btn-dark"%>
+<% end %>

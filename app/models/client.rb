@@ -1,16 +1,10 @@
 class Client < ApplicationRecord
-  belongs_to :user
   has_many :projects, dependent: :destroy
 
-  validates :firstname, :lastname, :email, presence: true
-  validates :firstname, format: { with: /[a-zA-Z]/, message: "Firstname only contains letters" }
-  validates :lastname, format: { with: /[a-zA-Z]/, message: "Lastname only contains letters" }
+  belongs_to :user
 
-  def set_clients
-    if current_user.admin?
-      @clients = Client.all
-    else
-      @clients = current_user.clients
-    end
-  end
+  validates :firstname, :lastname, :email, :street, :city, :country, presence: true
+  validates :firstname, format: {with: /[a-zA-Z]/, message: "should contain letters"}
+  validates :lastname, format: {with: /[a-zA-Z]/, message: "should only contain letters"}
+  validates :city, :country, format: {with: /[a-zA-Z]/, message: "should contain letters"}
 end

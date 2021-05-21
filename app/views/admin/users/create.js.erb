@@ -1,0 +1,8 @@
+<% if @user.errors.blank? %>
+  $('#newUserForm').modal('toggle');
+  $('.users_body').append("<%= j render 'admin/users/user_row', user: @user %>");
+  $('#success').show('slow');
+  $('#success').html("User added successfully..");
+<% else %>
+  $('#user_errors').html("<%= j render 'admin/users/form_errors', user: @user %>");
+<% end %>

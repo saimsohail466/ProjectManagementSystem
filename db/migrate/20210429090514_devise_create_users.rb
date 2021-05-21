@@ -36,7 +36,10 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.2]
       t.string :lastname
       t.string :email
       t.string :contact
-      t.string :address
+      t.string :street
+      t.string :city
+      t.string :country
+
       t.integer :status, default: 1
       t.integer :type_of, default: 2
 

@@ -1,0 +1,83 @@
+<!-- Modal -->
+  <div class="modal fade show" id="user_edit_form" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+           <h5 class="modal-title" id="exampleModalLabel">New user</h5>
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close" 
+                        onclick="removeFadeEffect()">
+              <span aria-hidden="true">&times;</span>
+           </button>
+        </div>
+        <div id="user_errors"></div>
+        <div class="modal-body">
+
+          <%= form_for user, url: admin_user_path(user), method: :patch do |f| %>
+            <% if user.errors.any? %>
+                <% user.errors.full_messages.each do |error| %>
+                    <li> <%= error %> </li>
+                <% end %>
+            <% end %>
+            
+            <div class="flex">
+              <div class="half-width">
+                <%= f.label :firstname, "Firstname" %>
+                <%= f.text_field :firstname, class: "form-control", required: true %>
+              </div>
+              <div class="half-width">
+                <%= f.label :lastname, "Lastname" %>
+                <%= f.text_field :lastname, class: "form-control", required: true  %>
+              </div>
+            </div>
+            
+            <div>
+              <%= f.label :email %>
+              <%= f.email_field :email, class: "form-control", required: true %>
+            </div>
+            
+            <div>
+              <%= f.label :contact %>
+              <%= f.text_field :contact, class: "form-control", required: true %>
+            </div>
+            
+            <div class="flex">
+              <div class="half-width">
+                <%= f.label :street %>
+                <%= f.text_field :street, class: "form-control", required: true %>
+              </div>
+              <div class="half-width">
+                <%= f.label :city %>
+                <%= f.text_field :city, class: "form-control", required: true %>
+              </div>
+            </div>
+
+            <div class="flex">
+              <div class="half-width">
+                <%= f.label :country %>
+                <%= f.text_field :country, class: "form-control", required: true %>
+              </div>
+
+              <div class="half-width">
+                <%= f.label :password %>
+                <%= f.hidden_field :password, value: rand(100000..200000), class: "form-control"%>
+              </div>
+            </div>
+            
+            <div>
+              <%= f.submit class: "btn btn-dark mt-2 " %>
+            </div>
+          <% end %>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="fade" class="modal-backdrop fade show"></div>
+
+<script type="text/javascript">
+  function removeFadeEffect() {
+    $('#user_edit_form').css('display','none');
+    $('body').removeClass('model-open'); 
+    $('#fade').remove()
+  }
+</script>

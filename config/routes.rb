@@ -1,11 +1,10 @@
 Rails.application.routes.draw do
- 	
   get 'projects/index'
   get 'clients/index'
-  devise_for :users
+  devise_for :users, controllers: {sessions: "sessions"}
 
   namespace :admin do
-    devise_for :users, only: :registration
+    resources :users, :projects
   end
 
   resources :users do
@@ -20,12 +19,18 @@ Rails.application.routes.draw do
 
   resources :comments
 
-  resources :projects, only: [ :index, :show, :destroy ]
+  resources :timelogs
 
-  get '/give_manager_rights', to: "users#give_manager_rights"
-  get '/disable_user', to: "users#disable_user"
+  resources :projects, only: [ :index, :show, :destroy ] do
+    resources :payments, except: :index
+  end
+
+  get 'projects/:id/new_members', to: 'projects#new_members', as: 'new_members'
+  
+  post 'projects/:id/new_members', to: 'projects#create_members' 
+  get '/give_manager_rights', to: "admin/users#give_manager_rights"
+  get '/change_user_status', to: "admin/users#change_user_status"
 
   root to: "home#index"
   get 'home/index'
-  
 end

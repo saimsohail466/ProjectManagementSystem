@@ -1,0 +1,31 @@
+ <tr>
+  <td> <%= project.title %> </td>
+  <td> <%= project.description %> </td>
+  <td> <%= project.start_date %> </td>
+  <td> <%= project.deadline %> </td>
+  <td> <%= project.comments.count %> </td>
+  <td> RS <%= project.payments.sum("amount") %> </td>
+  <td> <%= project.timelogs.sum("working_hours") %> Hours</td>
+  <td> <%= link_to "", admin_project_path(project), class: "fas fa-eye" %> </td>
+  <td>
+   <!--  <a href="" class="fas fa-edit" data-toggle="modal" data-target="#edit_project<%= project.id %>" ></a> -->
+   <%= link_to "", edit_admin_project_path(project), class: "fas fa-edit", data_target: "edit_project", remote: true %>
+    <!-- Model -->
+    <!-- <div class="modal fade" id="edit_project<%= project.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">New Project</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+           
+          </div>
+      </div>
+    </div>
+  </div> -->
+  </td>
+  <td> <%= link_to "", project , url: admin_projects_path, method: :delete, data: {confirm: "Are you sure?"}, class: "fas fa-trash" %> </td>
+</tr>

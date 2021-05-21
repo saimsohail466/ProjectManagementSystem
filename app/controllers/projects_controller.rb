@@ -1,12 +1,10 @@
 class ProjectsController < ApplicationController
-  before_action :find_project, only: %i[ show edit update destroy ]
+  before_action :user_signed?
+  before_action :validate_user, only: [:edit, :update, :destroy]
+  before_action :find_project, only: %i[ show edit update destroy new_members ]
   
   def index
-    if current_user.admin?
-      @projects = Project.all
-    else
-      @projects = current_user.projects
-    end
+    @projects = current_user.projects
   end
 
   def new
@@ -14,8 +12,9 @@ class ProjectsController < ApplicationController
   end
 
   def create
-    @project = Project.create(project_params)
+    @project = Project.new(project_params)
     if @project.save
+      Activeproject.create(user_id: current_user.id, project_id: @project.id)
       redirect_to client_project_path(params[:client_id],@project), notice: "successfully created.."
     else
       render "new"
@@ -28,11 +27,15 @@ class ProjectsController < ApplicationController
 
   def update
     if @project.update(project_params)
-      redirect_to client_project_path(params[:client_id],@project), notice: "update successfully.."
+      redirect_to client_project_path(@project.client_id,@project), notice: "update successfully.."
     else
       render "edit"
     end
   end
+
+  def new_members; end
+
+  def create_members; end
 
   def destroy
     if @project.destroy
@@ -47,6 +50,10 @@ class ProjectsController < ApplicationController
   end 
 
   def find_project
-    @project = Project.find(params[:id])
+    begin
+      @project = Project.find(params[:id])      
+    rescue ActiveRecord::RecordNotFound
+      redirect_to projects_path, alert: "No such project founded.."
+    end
   end
 end

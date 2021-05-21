@@ -1,0 +1,48 @@
+<div class="container">
+  <div class="project_added alert alert-success" style="display: none;"></div>
+  <a href="" class="btn btn-success fas fa-plus mt-2 mb-2" data-toggle="modal" data-target="#add_new_project"> New project</a>
+  <h3>Projects</h3>
+  <div id="proejct_index">
+    <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Start date</th>
+        <th>Dead Line</th>
+        <th>Comments</th>
+        <th>Payments</th>
+        <th>Working Hours</th>
+        <th colspan="3">Actions</th>
+      </tr>
+    </thead>
+    <tbody class="projects">
+      <% @projects.each do |project| %>
+        <%= render "project_row", project: project %>
+      <% end %>
+    </tbody>
+  </table>
+  </div>
+</div>
+
+<!-- edit form for project.. -->
+<div class="project-edit-form"></div>
+
+<!-- Model -->
+<div class="modal fade" id="add_new_project" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">New Project</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="project_errors"></div>
+        <div class="modal-body">
+          <%= render "new_project", project: Project.new %>
+        </div>
+      </div>
+    </div>
+</div>
+<!-- adding ajax to project.. create errors partials and create div in form to render it in.. -->

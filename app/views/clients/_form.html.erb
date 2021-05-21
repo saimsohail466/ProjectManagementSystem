@@ -1,6 +1,10 @@
 <div class="container">
-  <h2>New Client</h2>
-  <%= form_with model: [@client], local: true do |f| %>
+  <%= form_with model: [client], local: true do |f| %>
+    <% if client.errors.any? %>
+        <% client.errors.full_messages.each do |error| %>
+            <li> <%= error %> </li>
+        <% end %>
+    <% end %>
     <div class="flex">
       <div class="half-width">
         <%= f.label :firstname %>
@@ -15,6 +19,20 @@
       <%= f.label :email %>
       <%= f.text_field :email, class: "form-control" %>
     </div>
+    <div class="flex">
+    <div class="half-width">
+      <%= f.label :street %>
+      <%= f.text_field :street, class: "form-control", required: true %>
+    </div>
+    <div class="half-width">
+      <%= f.label :city %>
+      <%= f.text_field :city, class: "form-control", required: true %>
+    </div>
+  </div>
+  <div>
+    <%= f.label :country %>
+    <%= f.text_field :country, class: "form-control", required: true %>
+  </div>
     <div>
       <%= f.submit class: "btn btn-dark mt-3" %>
     </div>

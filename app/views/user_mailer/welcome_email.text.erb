@@ -1,0 +1,4 @@
+Welcome to example.com, <%= @user.full_name %>
+your Account has been created by Admin. your email is <%= @user.email %>
+please flow this link for reset your Password
+<%= link_to 'Change my password', edit_password_url(@user, reset_password_token: @token) %>

@@ -1,5 +1,5 @@
 <div class="container-fluid w-75 mt-4">
-  <%= link_to "Add new User", new_admin_user_registration_path, class: "btn btn-success" %>
+<!-- users index -->
 	<h5>Users</h5>
 	<table class="table table-hover">
 		<thead>
@@ -10,9 +10,7 @@
 				<th>Contact</th>
 				<th>Address</th>
 				<th>Type</th>
-				<% if current_user.admin? %>
-          <th colspan="5">Actions</th>
-        <% end %>
+        <th>Action</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -25,24 +23,6 @@
 					<td> <%= user.address %> </td>
 					<td> <%= user.type_of %> </td>
           <td> <%= link_to "", user_path(user), class: "fas fa-eye", title: "view" %> </td>
-          <% if current_user.admin? %>
-              <td>  
-                  <%= link_to "", edit_user_path(user), class: "fas fa-user-edit", title: "edit" %>
-              </td>
-              <td>
-                <%= link_to "", user , method: :delete, data: { confirm: "Are you Sure?" }, class: "fas fa-trash", title: "delete" %>
-              </td>
-
-              <% if user.enable? and user.type_of != "Admin" %>
-                  <td> <%= link_to "", disable_user_path(id: user) ,data: { confirm: "Are you Sure?" }, class: "fas fa-times", title: "disable" %> </td>
-              <% else %>
-                  <td> <%= link_to "", disable_user_path(id: user), data: { confirm: "Are you Sure?" }, class: "fas fa-check-circle", title: "enable" %> </td>  
-              <% end %>
-
-              <% if user.employee? %>
-                  <td> <%= link_to "Manager Rights", give_manager_rights_path(id: user), data: { confirm: "Are you Sure? "} %> </td>
-              <% end %>
-          <% end %>
 				</tr>
 			<% end %>
 		</tbody>

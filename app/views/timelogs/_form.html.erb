@@ -1,0 +1,38 @@
+<%= form_with model: [timelog], local: true do |f| %>
+  <% if timelog.errors.any? %>
+      <% timelog.errors.full_messages.each do |error| %>
+          <li> <%= error %> </li>
+      <% end %>
+  <% end %>
+
+  <div class="flex">
+    <div class="half-width">
+      <%= f.label :task_name %>
+      <%= f.text_field :task_name, placeholder: "Task Name", class: "form-control" %>
+    </div>
+    <div class="half-width">
+      <%= f.label :working_hours %>
+      <%= f.text_field :working_hours, placeholder: "Working hours", class: "form-control" %>
+    </div>
+  </div>
+
+  <div>
+    <%= f.label :task_description %>
+    <%= f.text_field :task_description, placeholder: "Task Description", class: "form-control" %>
+  </div>
+
+  <div>
+    <%= f.label :date_of_log %>
+    <%= f.date_field :date_of_log, class: "form-control" %>
+  </div>
+
+  <div>
+    <%= f.hidden_field :project_id %>
+    <%= f.hidden_field :user_id, value: current_user.id %>
+  </div>
+
+  <div>
+    <%= f.submit class: "btn btn-dark mt-3" %>
+  </div>
+
+<% end %>

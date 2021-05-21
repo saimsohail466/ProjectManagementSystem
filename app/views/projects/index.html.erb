@@ -24,7 +24,9 @@
           <td> <%= project.payments.count("amount") %> </td>
           <td> <%= project.timelogs.count("working_hours") %> </td>
           <td> <%= link_to "", project_path(project), class: "fas fa-eye" %> </td>
-          <td> <%= link_to "", edit_client_project_path(project.client_id,project), class: "fas fa-edit" %> </td>
+          <% if !current_user.employee? %>
+              <td> <%= link_to "", edit_client_project_path(project.client_id,project), class: "fas fa-edit" %> </td>
+          <% end %>
         </tr>
       <% end %>
     </tbody>

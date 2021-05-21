@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ResourseTest < ActiveSupport::TestCase
+class TimelogsControllerTest < ActionDispatch::IntegrationTest
   # test "the truth" do
   #   assert true
   # end

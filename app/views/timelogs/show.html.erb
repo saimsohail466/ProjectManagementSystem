@@ -1,0 +1,40 @@
+<div class="container mt-3 p-3">
+  <div class="jumbotron p-3">
+    <h5> <span> <strong>Task Name:</strong> </span> <%= @timelog.task_name %> </h5>
+    <h5> <span> <strong>Task Description:</strong> </span>  <%= @timelog.task_description %> </h5>
+    <h5> <span> <strong>Date of Log:</strong> </span> <%= @timelog.date_of_log %> </h5>
+    <h5> <span> <strong>Working hours:</strong> </span> <%= @timelog.working_hours %>  </h5>
+    <h5> <span> <strong>By:</strong> </span> <%= @timelog.user.full_name %> </h5>
+    <h5> <span> <strong>Project:</strong> </span> <%= @timelog.project.title %> </h5>
+    <%= link_to "Back", project_path(@timelog.project_id), class: "btn btn-dark" %>
+  </div>
+  <div class="container-fluid m-2 border rounded">
+   comments
+   <div>
+     <% if @timelog.comments.any? %>
+      <% @timelog.comments.each do |comment| %>
+        <div class="p-2 line">
+         <p class="flex line">
+          <% if comment.user.admin? %>
+              <span>
+                <%= link_to User.find(comment.user_id).full_name, user_path(comment.user_id) %> (Admin)
+              </span>
+          <% else %>
+              <%= link_to User.find(comment.user_id).full_name, user_path(comment.user_id) %>
+          <% end %>
+          <strong style="font-size: 0.8rem; ">  <%= time_ago_in_words(comment.created_at) %>  </strong>
+          </p>
+         <p class="line ml-3">  <%= comment.comment %> </p>
+         <% if current_user.admin? or current_user.id == comment.user_id %>
+            <p class="line half-width"> 
+              <%= link_to "", edit_comment_path(comment), class: "fas fa-edit" %>
+              <%= link_to "", comment, method: :delete, data: {confirm: "Are you sure?"}, class: "fas fa-trash" %>
+            </p>
+         <% end %>
+        </div>
+      <% end %>
+     <% end %>
+   </div>
+   <%= render "comments/form", comment: @timelog.comments.new %> 
+  </div>
+</div>

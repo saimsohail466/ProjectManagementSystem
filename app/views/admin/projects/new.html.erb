@@ -1,0 +1,4 @@
+<div class="container">
+  <%= render "form", client: @client, project: @project %>
+  <%= link_to "back", client_path(params[:client_id]) , class: "btn btn-light mt-3" %>
+</div>

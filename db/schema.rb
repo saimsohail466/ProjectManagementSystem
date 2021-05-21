@@ -10,12 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_07_064658) do
+ActiveRecord::Schema.define(version: 2021_05_11_102724) do
+
+  create_table "activeprojects", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "project_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "clients", force: :cascade do |t|
     t.string "firstname"
     t.string "lastname"
     t.string "email"
+    t.string "street"
+    t.string "city"
+    t.string "country"
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -38,7 +48,7 @@ ActiveRecord::Schema.define(version: 2021_05_07_064658) do
     t.decimal "amount"
     t.string "title"
     t.text "description"
-    t.string "payment_type"
+    t.integer "payment_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["project_id"], name: "index_payments_on_project_id"
@@ -78,11 +88,14 @@ ActiveRecord::Schema.define(version: 2021_05_07_064658) do
     t.string "firstname"
     t.string "lastname"
     t.string "contact"
-    t.string "address"
+    t.string "street"
+    t.string "city"
+    t.string "country"
     t.integer "status", default: 1
     t.integer "type_of", default: 2
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "enabled", default: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

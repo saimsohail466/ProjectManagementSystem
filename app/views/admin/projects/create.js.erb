@@ -1,0 +1,9 @@
+<% if @project.errors.blank? %>
+  $('#add_new_project').modal('toggle');
+  $('.projects').append("<%= j render 'project_row', project: @project %>");
+  $('.project_added').html("Project created successfully..");
+  $('.project_added').show();
+  $('#new_project_form').trigger('reset');
+<% else %>
+  $('.project_errors').html("<%= j render 'project_errors', project: @project %>");
+<% end %>

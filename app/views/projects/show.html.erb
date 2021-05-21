@@ -6,20 +6,30 @@
       <p> <%= @project.description %> </p>
       <p> <strong>Start date:</strong> <%= @project.start_date %> </p>
       <p> <strong>Dead-line:</strong> <%= @project.deadline %> </p>
-      <%= link_to "back", client_path(@project.client_id), class: "btn btn-light" %>
+      <% if current_user.employee? %>
+          <%= link_to "back", projects_path, class: "btn btn-dark" %>
+      <% else %>
+          <%= link_to "back", :back, class: "btn btn-dark" %>
+      <% end %>
     </div>
     <div class="half-width p-5">
       <h6> <strong> Total Comments  </strong> <%= @project.comments.count %> </h6>
-      <h6> <strong> Total Amount of Payments  </strong> <%= @project.payments.count(:amount) %> </h6>
+      <h6> <strong> Total Amount of Payments  </strong> <%= @project.payments.sum(:amount) %> </h6>
       <h6> <strong> Total Hours Spent </strong> <%= @project.timelogs.sum(:working_hours) %> </h6>
-      <%= link_to "Members", "#" , class: "btn btn-dark" %>
+      <% if !current_user.employee? %>
+          <%= link_to "Add Members", new_members_path(@project) , class: "btn btn-dark" %>
+          <%= link_to "Add Payment", new_project_payment_path(@project), class: "btn btn-dark" %>
+          <a href="" data-toggle="modal" data-target="#new_timelog" class="btn btn-dark">
+            New Timelog
+           </a>
+      <% end %>
     </div>
   </div>
 </div>
   <div class="container">
-    <div class="border rounded  p-2 mb-2">
+    <div class="border rounded  p-2 mb-5 comments" id="comments" remote: true >
       <strong> Comments </strong>
-      <% if @project.comments.any? %>
+      <% if @project.comments.present? %>
           <% @project.comments.last(5).each do |comment| %>
              <div class="p-2 line">
                <p class="flex line">
@@ -30,9 +40,11 @@
                 <% else %>
                     <%= link_to User.find(comment.user_id).full_name, user_path(comment.user_id) %>
                 <% end %>
+                
                 <strong style="font-size: 0.8rem; ">  <%= time_ago_in_words(comment.created_at) %>  </strong>
                 </p>
                <p class="line ml-3">  <%= comment.comment %> </p>
+               
                <% if current_user.admin? or current_user.id == comment.user_id %>
                   <p class="line half-width"> 
                     <%= link_to "", edit_comment_path(comment), class: "fas fa-edit" %>
@@ -48,30 +60,60 @@
     </div>
     <div class="border rounded p-2">
       <strong> Time-logs </strong>
-      <%= link_to "Add New Time-log", class: "btn btn-success" %>
+      <a href="" data-toggle="modal" data-target="#new_timelog">
+        New Timelog
+      </a>
+      <div class="modal fade" id="new_timelog" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">New payment</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <%= render "timelogs/form", timelog: @project.timelogs.new %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
       <% if @project.timelogs.any? %>
-          <table class="table table-hover">
-            <thead>
-              <tr>
-                <th>Date of log</th>
-                <th>Working hours</th>
-                <th>Task name</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <% @project.timelogs.each do |timelog| %>
-              <tr>
-                <td> <%= timelog.date_of_log %> </td>
-                <td> <%= timelog.working_hours %> </td>
-                <td> <%= timelog.task_name %> </td>
-                <td> <%= timelog.task_description %> </td>
-              </tr>
-      <% end %>
-            </tbody>
-          </table>
+          <%= render "timelogs/index", timelogs: @project.timelogs %>
       <% else %>
           <p class="border rounded p-2"> No time Log against this project </p>    
       <% end %>
+    </div>
+
+    <div class="border rounded p-2 mt-5">
+      <strong>Payments</strong>
+      <% if !current_user.employee?  %>
+          <a href="" data-toggle="modal" data-target="#exampleModal">
+            New payment
+          </a>
+      <% end %>    
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">New payment</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <%= render "payments/form", project: @project, payment: Payment.new %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% if @project.payments.any? %>
+        <%= render "payments/index" %>
+    <% else %>
+        <h6>  <strong> No Payments yet </strong> </h6>
+    <% end %>
+    </div>
     </div>
 </div>

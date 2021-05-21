@@ -1,22 +1,72 @@
-class Admin::RegistrationsController < Devise::RegistrationsController
-  def new
-    super
+class Admin::UsersController < ApplicationController
+  before_action :authenticate_login, :authenticate_user
+  before_action :set_user, only: [:change_user_status, :give_manager_rights, :show, :edit, :update]
+  
+  def index
+    @users = User.all
   end
 
+  def new
+    @user = User.new
+  end
 
   def create
-    super
-    if resourse.save
-      @verifier = Verifier.find_all_by_user_id(resourse.id)
-      @verifier.user_id = resourse.id
-      @verifier.save
-    else
-      render :new
+    @user = User.new(user_params)
+
+    if @user.save
+      UserMailer.welcome_email(@user.id).deliver_now
+      # @users = User.all
+      #flash.notice = "User created successfully.."
+      # respond_to do |format|
+      #   format.js {notice: "User created successfully.."}
+      # end
+    end
+    #   render :new
+    # end
+  end
+
+  def show; end
+
+  def change_user_status
+    @user.toggle!(:enabled)
+    redirect_to admin_users_path, notice: "User updated successfully.."
+  end
+
+  def give_manager_rights
+    if @user.manager!
+      redirect_to admin_users_path, notice: " User updated Successfully.."
     end
   end
 
+  def edit; end
 
   def update
-    super
+    if @user.update(user_params)
+      redirect_to admin_users_path, notice: "User update Successfully.."
+    else
+      render :edit
+    end
+  end
+
+  private 
+
+  def authenticate_user
+    redirect_to root_path, alert: "Access Denied" if !current_user.admin?
+  end
+
+  def authenticate_login
+    redirect_to root_path, alert: "Login first.." if !user_signed_in?
+  end
+
+  def set_user
+    begin
+      @user = User.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      redirect_to admin_users_path, alert: "No such user found.."
+    end
+  end
+
+  def user_params
+    params.require(:user).permit(:firstname, :lastname, :email, :contact, :street, :city, :country, :password)
   end
 end

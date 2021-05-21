@@ -1,4 +1,5 @@
 class CommentsController < ApplicationController
+  before_action :user_signed?
   before_action :set_comment, only: [:edit, :update, :destroy]
 
   def new
@@ -8,10 +9,15 @@ class CommentsController < ApplicationController
   def create
     @comment = Comment.new(comment_params)
     if @comment.save
-      redirect_to project_path(@comment.commentable_id)
+      if @comment.commentable_type == "Project"
+        redirect_to project_path(@comment.commentable_id)
+      elsif @comment.commentable_type == "Timelog"
+        redirect_to timelog_path(@comment.commentable_id)
+      elsif @comment.commentable_type == "Payment"
+        redirect_to payment_path(@comment.commentable_id)
+      end 
     else
-      byebug
-      render "comments/form"
+      render :form
     end
   end
 
@@ -20,23 +26,23 @@ class CommentsController < ApplicationController
   def update
     if @comment.update(comment_params)
      # here we need some checks because comments are having ploymorphic behaviour..
-      redirect_to project_path(@comment.commentable_id) , notice: "Commnet updated Successfully.."
+      redirect_to project_path(@comment.commentable_id) , notice: "Comment updated Successfully.."
     else
-      render "comments/form"
+      render :form
     end  
   end
 
   def destroy
     if @comment.destroy
       # here also..
-       redirect_to project_path(@comment.commentable_id), notice: "Comment Delete Successfully.." 
+       redirect_to project_path(@comment.commentable_id), notice: "Comment Delete Successfully.."
      end 
   end
 
   private
 
   def set_comment
-    @comment = Comment.find(params[:id])  
+    @comment = Comment.find(params[:id])
   end
 
   def comment_params

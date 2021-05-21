@@ -13,6 +13,27 @@
  *= require_tree .
  *= require_self
  */
+
+ * {
+  color: white;
+ }
+
+.jumbotron * {
+  color: black;
+}
+
+.modal * {
+  color: black;
+}
+
+.navbar {
+  border-bottom: 1px solid white;
+}
+
+.btn-dark {
+  color: white;
+}
+
 .flex {
 	display: flex;
 	justify-content: space-between;
@@ -28,7 +49,7 @@ a {
 }
 
 a:hover {
-  color: black;
+  color: white;
   text-decoration: none;
 }
 

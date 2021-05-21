@@ -1,0 +1,50 @@
+<%= form_for user, url: admin_users_path, remote: true ,method: :post, class: "new_user_form" do |f| %>
+  
+  <div class="flex">
+    <div class="half-width">
+      <%= f.label :firstname, "Firstname" %>
+      <%= f.text_field :firstname, class: "form-control", required: true %>
+    </div>
+    <div class="half-width">
+      <%= f.label :lastname, "Lastname" %>
+      <%= f.text_field :lastname, class: "form-control", required: true  %>
+    </div>
+  </div>
+  
+  <div>
+    <%= f.label :email %>
+    <%= f.email_field :email, class: "form-control", required: true %>
+  </div>
+  
+  <div>
+    <%= f.label :contact %>
+    <%= f.text_field :contact, class: "form-control", required: true %>
+  </div>
+  
+  <div class="flex">
+    <div class="half-width">
+      <%= f.label :street %>
+      <%= f.text_field :street, class: "form-control", required: true %>
+    </div>
+    <div class="half-width">
+      <%= f.label :city %>
+      <%= f.text_field :city, class: "form-control", required: true %>   
+    </div>
+  </div>
+
+  <div class="flex">
+    <div class="half-width">
+      <%= f.label :country %>
+      <%= f.text_field :country, class: "form-control", required: true %>
+    </div>
+
+    <div class="half-width">
+      <%= f.label :password %>
+      <%= f.hidden_field :password, value: rand(100000..200000), class: "form-control"%>
+    </div>
+  </div>
+  
+  <div>
+    <%= f.submit class: "btn btn-dark mt-2 " %>
+  </div>
+<% end %>
