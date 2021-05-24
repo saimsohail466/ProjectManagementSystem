@@ -9,8 +9,8 @@
     </tr>
   </thead>
   <tbody>
-    <% timelogs.each do |timelog| %>
-      <tr>
+    <% @project.timelogs.each do |timelog| %>
+      <tr id="<%= timelog.id %>">
         <td> <%= timelog.task_name %> </td>
         <td> <%= timelog.task_description %> </td>
         <td> <%= timelog.working_hours %> </td>
@@ -19,6 +19,6 @@
         <td> <%= link_to "", "", class: "fas fa-edit" %> </td>
         <td> <%= link_to "", "", class: "fas fa-trash" %> </td>
       </tr>
-   <% end %>
+    <% end %>
   </tbody>
 </table>

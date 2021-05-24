@@ -4,9 +4,12 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  has_attached_file :avatar, styles: { medium: "300x300>", thumb: "800x300>" }
+  validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\z/
+
   has_many :clients, dependent: :destroy
-  has_many :timelogs, dependent: :destroy 
-  has_many :comments, dependent: :destroy 
+  has_many :timelogs, dependent: :destroy
+  has_many :comments, dependent: :destroy
   has_many :activeprojects
   has_many :projects, through: :activeprojects, dependent: :destroy
 
@@ -17,7 +20,7 @@ class User < ApplicationRecord
   validates :contact, telephone_number: {country: proc{:pk}, types: [:mobile, :fixed_line]} 
   validates :country, :city, format: {with: /[a-zA-Z]/, message: "should only contains alphabets"}
 
-  after_create :send_email_notification
+  # after_create :send_email_notification
 
   #enum status: [:disable , :enable]
   enum type_of: [:manager, :admin, :employee]
@@ -29,7 +32,7 @@ class User < ApplicationRecord
   end
 
   def address
-    street + " " + city + "," + country 
+    street + " " + city + "," + country
   end
 
   def get_clients
@@ -46,6 +49,6 @@ class User < ApplicationRecord
   end
 
   def full_name
-    firstname + " " + lastname  
+    firstname + " " + lastname
   end 
 end

@@ -53,6 +53,11 @@
     <%= f.label :country %>
     <%= f.text_field :country, class: "form-control", required: true %>
   </div>
+
+  <div>
+    <%= f.label :avatar %>
+    <%= f.file_field :avatar %>
+  </div>
     
   <div>
     <%= f.hidden_field :type_of %>

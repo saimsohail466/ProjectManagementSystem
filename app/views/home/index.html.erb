@@ -3,6 +3,7 @@
 <% else %>
 	<div class="container">
     <p class="display-4"> welcome, <%= current_user.type_of %> </p>
+    <%= image_tag current_user.avatar.url(:thumb), class: "rounded" %>
     <!-- here listed top 5 projects along wi top 5 comments -->
   </div>
 <% end %>

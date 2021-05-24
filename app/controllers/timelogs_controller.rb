@@ -7,11 +7,9 @@ class TimelogsController < ApplicationController
 
   def create
     @timelog = Timelog.new(timelog_params)
-    if @timelog.save
-      redirect_to @timelog, notice: "Timelog Added Successfully.."
-    else
-      render :new
-    end
+    @timelog.save
+
+    respond_with @timelog
   end
 
   def show; end
