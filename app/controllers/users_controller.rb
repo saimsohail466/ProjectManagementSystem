@@ -9,15 +9,15 @@ class UsersController < ApplicationController
 
   def show; end
 
-  def edit; end
+  # def edit; end
 
-  # def update
-  #   if @user.update(user_params)
-  #     redirect_to users_path, notice: "User updated successfully.."
-  #   else
-  #     render "new"
-  #   end
-  # end
+  # # def update
+  # #   if @user.update(user_params)
+  # #     redirect_to users_path, notice: "User updated successfully.."
+  # #   else
+  # #     render "new"
+  # #   end
+  # # end
 
   def destroy
     @user.destroy

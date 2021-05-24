@@ -1,11 +1,11 @@
-<%= form_with model: comment do |f|%>
+<%= form_with model: comment, remote: true, id: "comment-form" do |f|%>
   <% if comment.errors.any? %>
         <% comment.errors.full_messages.each do |error| %>
             <%= error %>
         <% end %>
   <% end %>
   <div class="form-group mx-sm-3 mb-2">
-    <%= f.text_field :comment, placeholder: "Write Comment",class: "form-control" %>
+    <%= f.text_field :comment, placeholder: "Write Comment",class: "form-control comment-box" %>
     <%= f.hidden_field :commentable_type %>
     <%= f.hidden_field :commentable_id %>
     <%= f.hidden_field :user_id, value: current_user.id %>

@@ -38,10 +38,12 @@
       <%= f.text_field :country, class: "form-control", required: true %>
     </div>
 
-    <div class="half-width">
-      <%= f.label :password %>
-      <%= f.hidden_field :password, value: rand(100000..200000), class: "form-control"%>
-    </div>
+    <% unless user.persisted? %>
+      <div class="half-width">
+        <%= f.label :password %>
+        <%= f.hidden_field :password, value: rand(100000..200000), class: "form-control"%>
+      </div>
+    <% end %>
   </div>
   
   <div>

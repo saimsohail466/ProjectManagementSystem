@@ -1,0 +1,6 @@
+<% if @comment.errors.blank? %>
+  $('#project-comments').html("<%= j render 'comments/index', project: @comment.commentable %>");
+  $('#comment-form')[0].reset();
+<% else %>
+  alert("error in comment");  
+<% end %>

@@ -11,18 +11,8 @@ class Admin::UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(user_params)
-
-    if @user.save
-      UserMailer.welcome_email(@user.id).deliver_now
-      # @users = User.all
-      #flash.notice = "User created successfully.."
-      # respond_to do |format|
-      #   format.js {notice: "User created successfully.."}
-      # end
-    end
-    #   render :new
-    # end
+    @user = User.create(user_params)
+    # UserMailer.welcome_email(@user.id).deliver_now if @user.save
   end
 
   def show; end
@@ -32,6 +22,7 @@ class Admin::UsersController < ApplicationController
     redirect_to admin_users_path, notice: "User updated successfully.."
   end
 
+  #assign_manager_permission
   def give_manager_rights
     if @user.manager!
       redirect_to admin_users_path, notice: " User updated Successfully.."
@@ -42,6 +33,7 @@ class Admin::UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
+      # sign_in :user, @user, bypass: true
       redirect_to admin_users_path, notice: "User update Successfully.."
     else
       render :edit

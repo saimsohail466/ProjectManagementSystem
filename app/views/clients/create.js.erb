@@ -1,0 +1,8 @@
+alert("wow");
+<% if @user.errors.blank? %>
+  $('#client-row').append("<%= j render 'client', client: @client %>");
+  $('#new-client').modal('toggle');
+  $('#client-success').html('Client created successfully..');
+<% else %>
+  $('.client-errors').html("<%= j render 'client_errors', clinet: @client %>");
+<% end %>

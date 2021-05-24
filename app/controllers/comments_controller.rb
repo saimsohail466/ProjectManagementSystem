@@ -8,17 +8,7 @@ class CommentsController < ApplicationController
 
   def create
     @comment = Comment.new(comment_params)
-    if @comment.save
-      if @comment.commentable_type == "Project"
-        redirect_to project_path(@comment.commentable_id)
-      elsif @comment.commentable_type == "Timelog"
-        redirect_to timelog_path(@comment.commentable_id)
-      elsif @comment.commentable_type == "Payment"
-        redirect_to payment_path(@comment.commentable_id)
-      end 
-    else
-      render :form
-    end
+    @comment.save
   end
 
   def edit; end
@@ -33,10 +23,7 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    if @comment.destroy
-      # here also..
-       redirect_to project_path(@comment.commentable_id), notice: "Comment Delete Successfully.."
-     end 
+    @comment.destroy
   end
 
   private

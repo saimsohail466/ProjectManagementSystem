@@ -27,35 +27,15 @@
   </div>
 </div>
   <div class="container">
-    <div class="border rounded  p-2 mb-5 comments" id="comments" remote: true >
+    <div class="border rounded  p-2 mb-5 comments" >
       <strong> Comments </strong>
-      <% if @project.comments.present? %>
-          <% @project.comments.last(5).each do |comment| %>
-             <div class="p-2 line">
-               <p class="flex line">
-                <% if comment.user.admin? %>
-                    <span>
-                      <%= link_to User.find(comment.user_id).full_name, user_path(comment.user_id) %> (Admin)
-                    </span>
-                <% else %>
-                    <%= link_to User.find(comment.user_id).full_name, user_path(comment.user_id) %>
-                <% end %>
-                
-                <strong style="font-size: 0.8rem; ">  <%= time_ago_in_words(comment.created_at) %>  </strong>
-                </p>
-               <p class="line ml-3">  <%= comment.comment %> </p>
-               
-               <% if current_user.admin? or current_user.id == comment.user_id %>
-                  <p class="line half-width"> 
-                    <%= link_to "", edit_comment_path(comment), class: "fas fa-edit" %>
-                    <%= link_to "", comment, method: :delete, data: {confirm: "Are you sure?"}, class: "fas fa-trash" %>
-                  </p>
-               <% end %>
-             </div>
-          <% end %>
-      <% else %>
+      <div  id="project-comments">
+        <% if @project.comments.present? %>
+          <%= render "comments/index", project: @project %>
+        <% else %>
           <p class="border rounded p-2 text-danger"> empty comment box </p>    
-      <% end %>
+        <% end %>
+      </div>
       <%= render "comments/form", comment: @project.comments.new %>
     </div>
     <div class="border rounded p-2">

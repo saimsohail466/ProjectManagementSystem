@@ -17,6 +17,8 @@ class User < ApplicationRecord
   validates :contact, telephone_number: {country: proc{:pk}, types: [:mobile, :fixed_line]} 
   validates :country, :city, format: {with: /[a-zA-Z]/, message: "should only contains alphabets"}
 
+  after_create :send_email_notification
+
   #enum status: [:disable , :enable]
   enum type_of: [:manager, :admin, :employee]
 

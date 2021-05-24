@@ -11,7 +11,7 @@
         <%= link_to "", edit_admin_user_path(user), class: "fas fa-edit", title: "edit", remote: true %> 
       </td>
       <% if user.enabled? %>
-          <td> <%= link_to "", change_user_status_path(id: user) ,data: { confirm: "Are you sure you want to disbale this user?" }, class: "fas fa-times", title: "disable" %> </td>
+          <td> <%= link_to "", change_user_status_path(id: user) ,data: { confirm: "Are you sure you want to disbale this user?" }, class: "fas fa-ban", title: "disable" %> </td>
       <% else %>
           <td> <%= link_to "", change_user_status_path(id: user), data: { confirm: "Are you sure you want to enable this user?" }, class: "fas fa-check-circle", title: "enable" %> </td>  
       <% end %>

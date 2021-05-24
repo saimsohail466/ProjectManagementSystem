@@ -8,32 +8,33 @@
       <ul class="navbar-nav">
         <!-- checks if session is nil then display sign in and registration link -->
         <% if user_session.nil? %>
-          <li class="nav-item">
-            <%= link_to "Sign in", new_user_session_path, class: "nav-link" %>
-          </li>
-          <li>
-            <%= link_to "Registration", new_user_registration_path, class: "nav-link" %>
-          </li>
+          <div class="flex">
+            <li class="nav-item">
+              <%= link_to "Sign in", new_user_session_path, class: "nav-link" %>
+            </li>
+            <li>
+              <%= link_to "Registration", new_user_registration_path, class: "nav-link" %>
+            </li>
         <% else %>
+            <% if current_user.admin? %>
+                <%= link_to "Users", admin_users_path , class: "nav-link" %>
+                <%= link_to "Projects", admin_projects_path , class: "nav-link" %>
+            <% else %>
+                <%= link_to "Users", users_path , class: "nav-link" %>
+                <%= link_to "Projects", projects_path , class: "nav-link" %>
+            <% end %>
 
-          <% if current_user.admin? %>
-              <%= link_to "Users", admin_users_path , class: "nav-link" %>
-              <%= link_to "Projects", admin_projects_path , class: "nav-link" %>
-          <% else %>
-              <%= link_to "Users", users_path , class: "nav-link" %>
-              <%= link_to "Projects", projects_path , class: "nav-link" %>
-          <% end %>
+            <% if !current_user.employee? %>
+                <%= link_to "Clients", clients_path , class: "nav-link" %>
+            <% end %>
 
-          <% if !current_user.employee? %>
-              <%= link_to "Clients", clients_path , class: "nav-link" %>
-          <% end %>
-
-          <li class="nav-item">
-            <%= link_to "Edit Profile", edit_user_registration_path, class: "nav-link" %>
-          </li>
-           <li class="nav-item">
-            <%= link_to "logout", destroy_user_session_path, method: :delete, class: "nav-link" %>
-          </li>
+            <li class="nav-item">
+              <%= link_to "Edit Profile", edit_user_registration_path, class: "nav-link" %>
+            </li>
+             <li class="nav-item">
+              <%= link_to "logout", destroy_user_session_path, method: :delete, class: "nav-link" %>
+            </li>
+        </div>
         <% end %>
       </ul>
     </div>

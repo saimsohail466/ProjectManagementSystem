@@ -1,0 +1,12 @@
+<tr>
+    <td> <%= client.firstname %> </td>
+    <td> <%= client.lastname %> </td>
+    <td> <%= client.email %> </td>
+    <td> <%= client.country %> </td>
+    <td> <%= client.user.firstname %> </td>
+    <% if !current_user.employee? %>
+        <td> <%= link_to "", edit_client_path(client), class:  "fas fa-user-edit", title: "edit" %> </td>
+        <td> <%= link_to "", client_path(client), class: "fas fa-eye", title: "view" %> </td>
+        <td> <%= link_to "", client, method: :delete, data: { confirm: "Are you sure?" }, class: "fas fa-trash", title: "delete" %> </td>
+    <% end %>    
+</tr>
