@@ -12,7 +12,6 @@ class Admin::UsersController < ApplicationController
 
   def create
     @user = User.create(user_params)
-    # UserMailer.welcome_email(@user.id).deliver_now if @user.save
   end
 
   def show; end

@@ -1,11 +1,12 @@
 <div class="container p-2">
-  <div class="alert alert-success" style="display: none;" id="client-success">
-    
+  <div class="alert alert-success" style="display: none;" id="client-success">  
   </div>
-  <% if !current_user.employee? %>
-      <button type="button" class="btn btn-success fas fa-plus mb-2" data-toggle="modal" data-target="#new-client">
-        New client
+  <% unless current_user.employee? %>
+    <div class="flex">
+      <h3 class="mt-1">Clients</h3>
+      <button type="button" class="btn btn-success fas fa-plus mb-3" title="New Client" data-toggle="modal" data-target="#new-client">
       </button>
+    </div>
       <div class="modal fade" id="new-client" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">

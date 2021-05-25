@@ -71,10 +71,10 @@
   </div>
 
   <div class="border rounded p-2 mt-5">
-    <strong>Payments</strong>
     <div class="flex">
+       <strong>Payments</strong>
       <% unless current_user.employee?  %>
-        <a href="" class="btn btn-light fas fa-plus mb-2" data-toggle="modal" data-target="#exampleModal">
+        <a href="" class="btn btn-light fas fa-plus" title="New payment" data-toggle="modal" data-target="#exampleModal">
           
         </a>
       <% end %> 

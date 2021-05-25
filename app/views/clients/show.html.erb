@@ -5,24 +5,13 @@
     <h6> <%= @client.email %> </h6>
     <%= link_to "Back", clients_path , class: "btn btn-dark" %>
   </div>
-  <button type="button" class="btn btn-success fas fa-plus mb-2" data-toggle="modal" data-target="#exampleModal">
-    New project
-  </button>
-  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">New client</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <%= render "projects/form", client: @client, project: Project.new %>
-      </div>
-    </div>
+  <div class="flex">
+    <h3><%= "#{@client.firstname} projects" %></h3>
+    <button type="button" class="btn btn-success fas fa-plus mb-2" title="New project" data-toggle="modal" data-target="#exampleModal">
+    </button>  
   </div>
-</div>  
+  
+   
   <% if @client.projects.any? %>
       <table class="table table-hover">
             <thead>
@@ -51,3 +40,19 @@
       <h3 style="text-align: center;">No Project in list</h3>    
   <% end %>   
 </div>
+<!-- modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"><%= "Client #{@client.firstname}" %></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <%= render "projects/form", client: @client, project: Project.new %>
+      </div>
+    </div>
+  </div>
+</div> 

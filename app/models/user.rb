@@ -4,7 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  has_attached_file :avatar, styles: { medium: "300x300>", thumb: "800x300>" }
+  has_attached_file :avatar, styles: { medium: "300x300>", thumb: "200x200>" }
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\z/
 
   has_many :clients, dependent: :destroy
@@ -20,9 +20,8 @@ class User < ApplicationRecord
   validates :contact, telephone_number: {country: proc{:pk}, types: [:mobile, :fixed_line]} 
   validates :country, :city, format: {with: /[a-zA-Z]/, message: "should only contains alphabets"}
 
-  # after_create :send_email_notification
+  after_create :send_email_notification
 
-  #enum status: [:disable , :enable]
   enum type_of: [:manager, :admin, :employee]
 
   def make_manager
@@ -32,15 +31,7 @@ class User < ApplicationRecord
   end
 
   def address
-    street + " " + city + "," + country
-  end
-
-  def get_clients
-    if admin?
-      clients = Client.all
-    elsif manager?
-      clients = self.clients
-    end
+    "#{street} #{city},#{country}"
   end
 
   def normalize_text
@@ -48,7 +39,21 @@ class User < ApplicationRecord
     self.lastname = lastname.downcase.titleize
   end
 
+  def get_clients
+    if admin?
+      return Client.all
+    else
+      return current_user.clients
+    end
+  end
+
   def full_name
-    firstname + " " + lastname
+    "#{firstname} #{lastname}"
+  end
+
+  private
+
+  def send_email_notification
+    UserMailer.welcome_email(id).deliver_now
   end 
 end

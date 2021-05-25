@@ -8,13 +8,13 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
-        <% unless attachments.blank? %>
-          <%= render "attachments/projects" %>
-        <% else %>
-          <p class="alert alert-danger center"> No data Funded </p>  
-        <% end %>
-      </div>
+      <% unless attachments.blank? %>
+        <div class="modal-body">
+          <% render "attachments/projects" %>
+        </div>
+      <% else %>
+        <p class="alert alert-danger center"> No data Funded </p>  
+      <% end %>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary">Save changes</button>
