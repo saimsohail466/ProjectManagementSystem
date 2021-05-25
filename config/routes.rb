@@ -23,7 +23,10 @@ Rails.application.routes.draw do
 
   resources :projects, only: [ :index, :show, :destroy ] do
     resources :payments, except: :index
+    resources :attachments
   end
+
+  resources :attachments
 
   get 'projects/:id/new_members', to: 'projects#new_members', as: 'new_members'
   

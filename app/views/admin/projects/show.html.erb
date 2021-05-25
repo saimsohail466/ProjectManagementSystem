@@ -17,78 +17,88 @@
           <%= link_to "Add Payment", new_project_payment_path(@project), class: "btn btn-dark" %>
           <a href="" data-toggle="modal" data-target="#new_timelog" class="btn btn-dark">
             New Timelog
-           </a>
+          </a>
+          <%= render "attachments/form" %>
       <% end %>
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#attachments">
+        View Attachments
+      </button>
+      <%= render "attachments/index", attachments: @project.attachments %>
     </div>
   </div>
 </div>
-  <div class="container">
-    <div class="border rounded  p-2 mb-5" id="comments" >
-      <strong> Comments </strong>
-      <div id="project-comments">
-        <% if @project.comments.any? %>
-          <%= render "comments/index", project: @project %>
-        <% else %>
-          <p class="border rounded p-2 text-danger"> empty comment box </p>    
-        <% end %>
-      </div>
-      <%= render "comments/form", comment: @project.comments.new %>
-    </div>
-    <div class="border rounded p-2">
-      <strong> Time-logs </strong>
-      <a href="" data-toggle="modal" data-target="#new_timelog">
-        New Timelog
-      </a>
-      <div class="modal fade" id="new_timelog" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">New Time-log</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <%= render "timelogs/form", timelog: @project.timelogs.new %>
-            </div>
-          </div>
-        </div>
-      </div>
-      <% if @project.timelogs.any? %>
-          <%= @project.id %>
-          <%= render "timelogs/index", timelogs: @project.timelogs %>
+
+<div class="container">
+  <div class="border rounded  p-2 mb-5" id="comments" >
+    <strong> Comments </strong>
+    <div id="project-comments">
+      <% if @project.comments.any? %>
+        <%= render "comments/index", project: @project %>
       <% else %>
-          <p class="border rounded p-2"> No time Log against this project </p>    
+        <p class="border rounded p-2 text-danger"> empty comment box </p>    
       <% end %>
     </div>
-
-    <div class="border rounded p-2 mt-5">
-      <strong>Payments</strong>
-      <% if !current_user.employee?  %>
-          <a href="" data-toggle="modal" data-target="#exampleModal">
-            New payment
-          </a>
-      <% end %>    
-      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <%= render "comments/form", comment: @project.comments.new %>
+  </div>
+  <div class="timelog-success alert alert-success" style="display: none;"></div>
+  <div class="border rounded p-2">
+    <div class="flex">
+      <strong> Time-logs </strong>
+      <a href="" class="btn btn-light fas fa-plus mb-2" title="New timelog" data-toggle="modal" data-target="#new_timelog">
+        
+      </a>
+    </div>
+    <% if @project.timelogs.any? %>
+        <%= render "timelogs/index", timelogs: @project.timelogs %>
+    <% else %>
+        <p class="border rounded p-2"> No time Log against this project </p>    
+    <% end %>
+    <div class="modal fade" id="new_timelog" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">New payment</h5>
+            <h5 class="modal-title" id="exampleModalLabel">New Time-log</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
-            <%= render "payments/form", project: @project, payment: Payment.new %>
+            <%= render "timelogs/form", timelog: @project.timelogs.new %>
           </div>
         </div>
       </div>
     </div>
-    <% if @project.payments.any? %>
-        <%= render "payments/index", project: @project %>
-    <% else %>
-        <h6>  <strong> No Payments yet </strong> </h6>
-    <% end %>
+  </div>
+
+  <div class="border rounded p-2 mt-5">
+    <strong>Payments</strong>
+    <div class="flex">
+      <% unless current_user.employee?  %>
+        <a href="" class="btn btn-light fas fa-plus mb-2" data-toggle="modal" data-target="#exampleModal">
+          
+        </a>
+      <% end %> 
+    </div>   
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">New payment</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <%= render "payments/form", project: @project, payment: Payment.new %>
+        </div>
+      </div>
     </div>
-    </div>
+  </div>
+  <% if @project.payments.any? %>
+      <%= render "payments/index", project: @project %>
+  <% else %>
+      <h6>  <strong> No Payments yet </strong> </h6>
+  <% end %>
+  </div>
+  </div>
 </div>

@@ -1,1 +1,9 @@
-alert("hello..")
+<% if @timelog.persisted? %>
+  $('#new_timelog').modal('toggle');
+  $('.timelogs').append("<%= j render 'timelog', timelog: @timelog %>");
+  $('#timelog-form')[0].reset();
+  $('.timelog-success').html('Timelog created successfully..');
+  $('.timelog-success').css('display','block');
+<% else %>
+  
+<% end %>

@@ -21,7 +21,8 @@
           <%= link_to "Add Payment", new_project_payment_path(@project), class: "btn btn-dark" %>
           <a href="" data-toggle="modal" data-target="#new_timelog" class="btn btn-dark">
             New Timelog
-           </a>
+          </a>
+          <%= render "attachments/form" %>
       <% end %>
     </div>
   </div>
@@ -43,6 +44,12 @@
       <a href="" data-toggle="modal" data-target="#new_timelog">
         New Timelog
       </a>
+      <% if @project.timelogs.any? %>
+          <%= render "timelogs/index" %>
+      <% else %>
+          <p class="border rounded p-2"> No time Log against this project </p>    
+      <% end %>
+
       <div class="modal fade" id="new_timelog" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
@@ -58,13 +65,6 @@
           </div>
         </div>
       </div>
-
-
-      <% if @project.timelogs.any? %>
-          <%= render "timelogs/index" %>
-      <% else %>
-          <p class="border rounded p-2"> No time Log against this project </p>    
-      <% end %>
     </div>
 
     <div class="border rounded p-2 mt-5">

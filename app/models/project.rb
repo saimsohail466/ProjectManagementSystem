@@ -4,7 +4,8 @@ class Project < ApplicationRecord
   has_many :comments, as: :commentable, dependent: :destroy
   has_many :activeprojects
   has_many :users, through: :activeprojects
-
+  has_many :attachments
+  
   belongs_to :client
 
   before_validation :normalize_title, on: [:create, :update]

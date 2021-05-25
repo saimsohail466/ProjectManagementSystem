@@ -8,8 +8,6 @@ class TimelogsController < ApplicationController
   def create
     @timelog = Timelog.new(timelog_params)
     @timelog.save
-
-    respond_with @timelog
   end
 
   def show; end

@@ -3,6 +3,7 @@ alert("wow");
   $('#client-row').append("<%= j render 'client', client: @client %>");
   $('#new-client').modal('toggle');
   $('#client-success').html('Client created successfully..');
+  $('#client-success').css('display','block');
 <% else %>
   $('.client-errors').html("<%= j render 'client_errors', clinet: @client %>");
 <% end %>

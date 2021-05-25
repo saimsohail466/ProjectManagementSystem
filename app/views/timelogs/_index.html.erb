@@ -8,7 +8,7 @@
       <th colspan="3">Actions</th>
     </tr>
   </thead>
-  <tbody>
+  <tbody class="timelogs">
     <% @project.timelogs.each do |timelog| %>
       <tr id="<%= timelog.id %>">
         <td> <%= timelog.task_name %> </td>

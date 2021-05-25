@@ -42,6 +42,9 @@ gem 'bootsnap', '>= 1.1.0', require: false
 # gem use for user athentication
 gem 'devise', '~> 4.7', '>= 4.7.3'
 
+# gem for file uploading
+gem 'carrierwave', '~> 2.0'
+
 # validates contact number at the time of registration
 gem 'telephone_number'
 

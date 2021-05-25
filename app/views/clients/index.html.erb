@@ -1,4 +1,7 @@
 <div class="container p-2">
+  <div class="alert alert-success" style="display: none;" id="client-success">
+    
+  </div>
   <% if !current_user.employee? %>
       <button type="button" class="btn btn-success fas fa-plus mb-2" data-toggle="modal" data-target="#new-client">
         New client

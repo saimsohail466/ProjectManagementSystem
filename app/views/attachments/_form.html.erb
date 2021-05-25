@@ -1,0 +1,14 @@
+<%= form_with model: [@project.attachments.new], local: true do |f| %>
+    <div>
+      <%= f.label :attachment_file %>
+      <%= f.file_field :attachment_file %>
+    </div>
+
+    <div>
+      <%= f.hidden_field :project_id %>
+    </div>
+
+    <div>
+      <%= f.submit %>
+    </div>
+<% end %>
