@@ -1,5 +1,6 @@
 <% if @timelog.persisted? %>
   $('#new_timelog').modal('toggle');
+  $('.modal-backdrop').removeClass('fade show')
   $('.timelogs').append("<%= j render 'timelog', timelog: @timelog %>");
   $('#timelog-form')[0].reset();
   $('.timelog-success').html('Timelog created successfully..');

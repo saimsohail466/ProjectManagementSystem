@@ -1,4 +1,4 @@
-<%= form_with model: [@project.attachments.new], local: true do |f| %>
+<%= form_with model: [@project.attachments.new], remote: true, id: "attachment-form"  do |f| %>
     <div>
       <%= f.label :attachment_file %>
       <%= f.file_field :attachment_file %>

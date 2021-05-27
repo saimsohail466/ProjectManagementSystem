@@ -12,15 +12,20 @@
       <h6> <strong> Total Comments  </strong> <%= @project.comments.count %> </h6>
       <h6> <strong> Total Amount of Payments  </strong> <%= @project.payments.sum(:amount) %> </h6>
       <h6> <strong> Total Hours Spent </strong> <%= @project.timelogs.sum(:working_hours) %> </h6>
-      <% if !current_user.employee? %>
-          <%= link_to "Add Members", new_members_path(@project) , class: "btn btn-dark" %>
-          <%= link_to "Add Payment", new_project_payment_path(@project), class: "btn btn-dark" %>
-          <a href="" data-toggle="modal" data-target="#new_timelog" class="btn btn-dark">
-            New Timelog
-          </a>
-          <%= render "attachments/form" %>
+      <% unless current_user.employee? %>
+          <div class="flex">
+            <%= link_to "Add Members", new_members_path(@project) , class: "btn btn-dark" %>
+            <%= link_to "Add Payment", new_project_payment_path(@project), class: "btn btn-dark" %>
+             <a href="" data-toggle="modal" data-target="#new_timelog" class="btn btn-dark">
+              New Timelog
+             </a>
+          </div>
+          <div class="mt-2">
+            <p class="alert alert-success attachment-success" style="display: none;"></p>
+            <%= render "attachments/form" %>
+          </div>  
       <% end %>
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#attachments">
+      <button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#attachments">
         View Attachments
       </button>
       <%= render "attachments/index", attachments: @project.attachments %>
@@ -45,7 +50,6 @@
     <div class="flex">
       <strong> Time-logs </strong>
       <a href="" class="btn btn-light fas fa-plus mb-2" title="New timelog" data-toggle="modal" data-target="#new_timelog">
-        
       </a>
     </div>
     <% if @project.timelogs.any? %>
@@ -75,7 +79,6 @@
        <strong>Payments</strong>
       <% unless current_user.employee?  %>
         <a href="" class="btn btn-light fas fa-plus" title="New payment" data-toggle="modal" data-target="#exampleModal">
-          
         </a>
       <% end %> 
     </div>   
@@ -102,3 +105,5 @@
   </div>
   </div>
 </div>
+<div class="modal-backdrop fade show" style="display: none;"></div>
+<div id="edit-timelog-form-div"></div>

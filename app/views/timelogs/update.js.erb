@@ -1,0 +1,5 @@
+$('#<%=@timelog.id%>').html("<%= j render 'timelog_row', timelog: @timelog %>");
+$('#<%=@timelog.id%>').children().css('color','red');
+$('#edit-timelog').remove();
+$('body').removeClass('modal-open');
+$('.modal-backdrop').remove();

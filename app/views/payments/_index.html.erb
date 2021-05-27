@@ -18,6 +18,7 @@
         <td> <strong>RS </strong> <%= payment.amount %> </td>
         <td> <%= payment.payment_type %> </td>
         <% unless current_user.employee? %>
+        <td> <%= link_to "", project_payment_path(payment) , class: "fas fa-eye", title: "View" %> </td>
         <td> 
           <a href="" class="fas fa-edit" data-toggle="modal" data-target="#edit_payment_<%= payment.id %>", title="Edit" > </a>
           <!-- Modal -->
@@ -37,7 +38,6 @@
             </div>
           </div> 
         </td>
-        <td> <%= link_to "", project_payment_path(payment) , class: "fas fa-eye", title: "View" %> </td>
         <td> <%= link_to "", project_payment_path(@project, payment), method: :delete, data: {confirm: "Are you Sure?"}, class: "fas fa-trash", title: "delete" %> </td>
       <% end %>
       </tr>

@@ -1,0 +1,3 @@
+<% unless @timelog.persisted? %>
+  $('#<%=@timelog.id%>').hide();
+<% end %>

@@ -1,0 +1,10 @@
+<% if @attachment.persisted? %>
+  $('#attachment-form')[0].reset();
+  $('.attachment-success').html('Attachment added successfully..');
+  $('.attachment-success').css('display','block');
+<% else %>
+  $('.attachment-success').removeClass('alert-success');
+  $('.attachment-success').addClass('alert-danger');
+  $('.attachment-success').html('Attachment not added..');
+  $('.attachment-success').css('display','block');
+<% end %>

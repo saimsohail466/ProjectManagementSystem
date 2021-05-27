@@ -1,0 +1,29 @@
+<div>
+  <div class="flex">
+  <h5><strong>Title: </strong> <%= project.title %> </h5>
+  <h5><strong>Working Hours: </strong> <%= project.timelogs.sum(:working_hours) %> </h5>
+  <h5><strong>Earnings: </strong> <%= project.payments.sum(:amount) %> </h5>
+  <% if current_user.admin? %>
+    <h5> <%= link_to "", project_path(project), class: "fas fa-eye", title: "View Project" %> </h5>
+  <% end %>
+  </div>
+  <div>
+    <% if project.comments.any? %>
+      <h4>Comments</h4>
+      <table class="table">
+        <thead>
+          <th> Uesr </th>
+          <th> Comment </th>
+        </thead>
+        <tbody>
+          <% project.comments.order(id: :desc).limit(5).each do |comment|  %>
+            <tr>
+              <td> <%= link_to comment.user.full_name, comment.user.full_name %> </td>
+              <td> <%= comment.comment %> </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
+  </div>
+</div>

@@ -14,7 +14,13 @@ class TimelogsController < ApplicationController
 
   def edit; end
 
-  def update; end
+  def update
+    @timelog.update(timelog_params)
+  end
+
+  def destroy
+    @timelog.destroy
+  end
 
   private
 

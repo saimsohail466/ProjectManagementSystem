@@ -1,0 +1,64 @@
+<!-- Model -->
+<div class="modal fade" id="edit-timelog" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">New Project</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="removeFadeEffect()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="project_errors"></div>
+        <div class="modal-body">
+          <div class="container">
+            <%= form_with model: [timelog], id: "edit-timelog-form", remote: true do |f| %>
+              <% if timelog.errors.any? %>
+                  <% timelog.errors.full_messages.each do |error| %>
+                      <li> <%= error %> </li>
+                  <% end %>
+              <% end %>
+
+              <div class="flex">
+                <div class="half-width">
+                  <%= f.label :task_name %>
+                  <%= f.text_field :task_name, placeholder: "Task Name", class: "form-control" %>
+                </div>
+                <div class="half-width">
+                  <%= f.label :working_hours %>
+                  <%= f.number_field :working_hours, placeholder: "Working hours", class: "form-control" %>
+                </div>
+              </div>
+
+              <div>
+                <%= f.label :task_description %>
+                <%= f.text_field :task_description, placeholder: "Task Description", class: "form-control" %>
+              </div>
+
+              <div>
+                <%= f.label :date_of_log %>
+                <%= f.date_field :date_of_log, value: timelog.date_of_log, class: "form-control" %>
+              </div>
+
+              <div>
+                <%= f.hidden_field :project_id %>
+                <%= f.hidden_field :user_id, value: current_user.id %>
+              </div>
+
+              <div>
+                <%= f.submit class: "btn btn-dark mt-3" %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+  function removeFadeEffect() {
+    $('#edit-timelog').css('display','none');
+    $('body').removeClass('modal-open'); 
+    $('#fade').remove();
+    $('.modal-backdrop').hide();
+  }
+</script>

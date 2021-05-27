@@ -1,23 +1,23 @@
- <% project.comments.last(5).each do |comment| %>
-   <div class="p-2 line">
-     <p class="flex line">
-      <% if comment.user.admin? %>
-          <span>
-            <%= link_to User.find(comment.user_id).full_name, user_path(comment.user_id) %> (Admin)
-          </span>
-      <% else %>
-          <%= link_to User.find(comment.user_id).full_name, user_path(comment.user_id) %>
-      <% end %>
-      
-      <strong style="font-size: 0.8rem; ">  <%= time_ago_in_words(comment.created_at) %>  </strong>
+<% project.comments.last(5).each do |comment| %>
+ <div class="p-2 line">
+   <p class="flex line">
+    <% if comment.user.admin? %>
+        <span>
+          <%= link_to User.find(comment.user_id).full_name, user_path(comment.user_id) %> (Admin)
+        </span>
+    <% else %>
+        <%= link_to User.find(comment.user_id).full_name, user_path(comment.user_id) %>
+    <% end %>
+    
+    <strong style="font-size: 0.8rem; ">  <%= time_ago_in_words(comment.created_at) %>  </strong>
+    </p>
+   <p class="line ml-3"> <%= comment.comment %> </p>
+   
+   <% if current_user.admin? or current_user.id == comment.user_id %>
+      <p class="line half-width"> 
+        <%= link_to "", edit_comment_path(comment), class: "fas fa-edit" %>
+        <%= link_to "", comment, method: :delete, data: {confirm: "Are you sure?"}, remote: true, class: "fas fa-trash" %>
       </p>
-     <p class="line ml-3"> <%= comment.comment %> </p>
-     
-     <% if current_user.admin? or current_user.id == comment.user_id %>
-        <p class="line half-width"> 
-          <%= link_to "", edit_comment_path(comment), class: "fas fa-edit" %>
-          <%= link_to "", comment, method: :delete, data: {confirm: "Are you sure?"}, class: "fas fa-trash" %>
-        </p>
-     <% end %>
-   </div>
+   <% end %>
+ </div>
 <% end %>

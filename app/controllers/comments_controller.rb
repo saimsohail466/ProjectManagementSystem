@@ -14,12 +14,7 @@ class CommentsController < ApplicationController
   def edit; end
 
   def update
-    if @comment.update(comment_params)
-     # here we need some checks because comments are having ploymorphic behaviour..
-      redirect_to project_path(@comment.commentable_id) , notice: "Comment updated Successfully.."
-    else
-      render :form
-    end  
+    @comment.update(comment_params)
   end
 
   def destroy

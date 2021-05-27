@@ -40,11 +40,8 @@ class User < ApplicationRecord
   end
 
   def get_clients
-    if admin?
-      return Client.all
-    else
-      return current_user.clients
-    end
+    return Client.all if admin?
+    return self.clients
   end
 
   def full_name

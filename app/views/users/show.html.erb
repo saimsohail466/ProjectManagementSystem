@@ -1,7 +1,12 @@
 <div class="container p-3">
   <div class="jumbotron">
-    <h3> <%= @user.full_name %> </h3>
-    <p> <%= @user.email %> </p>
-    <%= link_to "Back", :back %>
+    <div class="flex">
+      <div>
+        <%= image_tag @user.avatar.url(:thumb), class: "rounded" %>
+        <h3> <%= @user.full_name %> </h3>
+        <p> <%= @user.email %> </p>
+      </div>
+    </div>
+    <%= link_to "Back", :back , class: "btn btn-dark mt-3" %>
   </div>
 </div>

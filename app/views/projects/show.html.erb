@@ -16,14 +16,21 @@
       <h6> <strong> Total Comments  </strong> <%= @project.comments.count %> </h6>
       <h6> <strong> Total Amount of Payments  </strong> <%= @project.payments.sum(:amount) %> </h6>
       <h6> <strong> Total Hours Spent </strong> <%= @project.timelogs.sum(:working_hours) %> </h6>
-      <% if !current_user.employee? %>
+      <% unless current_user.employee? %>
           <%= link_to "Add Members", new_members_path(@project) , class: "btn btn-dark" %>
           <%= link_to "Add Payment", new_project_payment_path(@project), class: "btn btn-dark" %>
           <a href="" data-toggle="modal" data-target="#new_timelog" class="btn btn-dark">
             New Timelog
           </a>
-          <%= render "attachments/form" %>
       <% end %>
+      <div class="mt-2">
+        <p class="alert alert-success attachment-success" style="display: none;"></p>
+        <%= render "attachments/form" %>
+        <button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#attachments">
+        View Attachments
+        </button>
+        <%= render "attachments/index", attachments: @project.attachments %>
+      </div>
     </div>
   </div>
 </div>
@@ -39,11 +46,13 @@
       </div>
       <%= render "comments/form", comment: @project.comments.new %>
     </div>
+     <div class="timelog-success alert alert-success" style="display: none;"></div>
     <div class="border rounded p-2">
-      <strong> Time-logs </strong>
-      <a href="" data-toggle="modal" data-target="#new_timelog">
-        New Timelog
-      </a>
+     <div class="flex">
+        <strong> Time-logs </strong>
+        <a href="" data-toggle="modal" data-target="#new_timelog" class="fas fa-plus btn btn-light mb-2" title="New timelog">
+        </a>
+     </div>
       <% if @project.timelogs.any? %>
           <%= render "timelogs/index" %>
       <% else %>
