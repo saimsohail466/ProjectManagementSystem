@@ -5,10 +5,16 @@
     <p class="display-4"> welcome, <%= current_user.type_of %> </p>
     <!-- here listed top 5 projects along wi top 5 comments -->
     <h4>Top 5 projects</h4>
-    <% Project.includes(:timelogs, :payments, :comments).order(amount: :desc).limit(5).each do |project| %>
-      <div class="jumbotron">
-        <%= render "project", project: project %>
-      </div>
+    <% if Project.all.any? %>
+      <% begin %>
+        <% Project.includes(:timelogs, :payments, :comments).order(amount: :desc).limit(5).each do |project| %>
+          <div class="jumbotron">
+            <%= render "project", project: project %>
+          </div>
+        <% end %>
+      <% rescue ActiveRecord::StatementInvalid %>
+        <h3>Data not founded..</h3>
+      <% end %>
     <% end %>
   </div>
 <% end %>

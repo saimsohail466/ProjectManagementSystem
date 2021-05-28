@@ -18,7 +18,7 @@
         <tbody>
           <% project.comments.order(id: :desc).limit(5).each do |comment|  %>
             <tr>
-              <td> <%= link_to comment.user.full_name, comment.user.full_name %> </td>
+              <td> <%= link_to comment.user.full_name, comment.user %> </td>
               <td> <%= comment.comment %> </td>
             </tr>
           <% end %>

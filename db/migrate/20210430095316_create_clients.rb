@@ -1,12 +1,12 @@
 class CreateClients < ActiveRecord::Migration[5.2]
   def change
     create_table :clients do |t|
-      t.string :firstname
-      t.string :lastname
-      t.string :email
-      t.string :street
-      t.string :city
-      t.string :country
+      t.text :firstname
+      t.text :lastname
+      t.text :email
+      t.text :street
+      t.text :city
+      t.text :country
       t.references :user, foreign_key: true
 
       t.timestamps

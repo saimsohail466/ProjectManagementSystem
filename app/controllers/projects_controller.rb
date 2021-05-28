@@ -33,10 +33,6 @@ class ProjectsController < ApplicationController
     end
   end
 
-  def new_members; end
-
-  def create_members; end
-
   def destroy
     if @project.destroy
       redirect_to client_path(@project.client_id), notice: "successfully deleted.."

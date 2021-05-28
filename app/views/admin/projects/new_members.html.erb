@@ -1,0 +1,23 @@
+<div class="container p-3">
+  <h4>Assign Members to Project # <%= @project.id %> </h4>
+  <div class="border rounded m-2 p-3">
+    <strong>Users</strong>
+    <%= form_for(:activeproject, url: assign_members_path) do |form| %>
+        <div>
+          <% if @users.any? %>
+            <% @users.each do |user| %>
+              <div class="w-50 p-3">
+                <%= check_box_tag 'users[user_ids][]', user.id, checked = false %>
+                <%= user.full_name %> <br>
+              </div>
+            <% end %>
+          <% else %>
+            <h4>No members are avilable for this project..</h4>  
+          <% end %>
+        </div>
+        <div>
+          <%= form.submit "Add Memebrs", class: "btn btn-dark" %>
+        </div>
+    <% end %>
+  </div>
+</div>

@@ -7,23 +7,12 @@ class Project < ApplicationRecord
   has_many :attachments
   
   belongs_to :client
-
-  before_validation :normalize_title, on: [:create, :update]
   
   validates :title, :description, :start_date, :deadline, presence: true
   validate :valid_deadline
 
 
   private
-
-  # def add_member
-  #   Activeproject.create(user_id: current_user.id, project_id: id)
-  # end
-
-  def normalize_title
-    self.title = title.strip.humanize
-    self.description = description.strip.humanize
-  end
 
   def valid_deadline
     return if deadline.nil?

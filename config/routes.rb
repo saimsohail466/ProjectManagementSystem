@@ -28,9 +28,9 @@ Rails.application.routes.draw do
 
   resources :attachments
 
-  get 'projects/:id/new_members', to: 'projects#new_members', as: 'new_members'
+  get 'admin/projects/:id/new_members', to: 'admin/projects#new_members', as: 'new_members'
   
-  post 'projects/:id/new_members', to: 'projects#create_members' 
+  post 'admin/projects/:id/assign_members', to: 'admin/projects#assign_members', as: 'assign_members'
   get '/give_manager_rights', to: "admin/users#give_manager_rights"
   get '/change_user_status', to: "admin/users#change_user_status"
 
