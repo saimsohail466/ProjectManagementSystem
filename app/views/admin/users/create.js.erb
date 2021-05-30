@@ -1,4 +1,5 @@
 <% if @user.errors.blank? %>
+  $('.modal-backdrop').remove();
   $('#newUserForm').modal('toggle');
   $('.users_body').append("<%= j render 'admin/users/user', user: @user %>");
   $('#success').show('slow');

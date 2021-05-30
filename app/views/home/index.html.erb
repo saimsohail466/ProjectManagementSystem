@@ -7,7 +7,7 @@
     <h4>Top 5 projects</h4>
     <% if Project.all.any? %>
       <% begin %>
-        <% Project.includes(:timelogs, :payments, :comments).order(amount: :desc).limit(5).each do |project| %>
+        <% Project.limit(5).each do |project| %>
           <div class="jumbotron">
             <%= render "project", project: project %>
           </div>

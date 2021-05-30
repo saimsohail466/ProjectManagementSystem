@@ -18,7 +18,6 @@
         <td> <%= link_to "", timelog, class: "fas fa-eye" %> </td>
        <% if current_user.id == timelog.user_id %>
         <td>
-         <!--  <a href="<%= edit_timelog_path(timelog) %>" data-remote= "true" class="fas fa-edit" id= "edit-this-timelog" data-toggle="modal" data-target="edit-timelog" ></a>  -->
           <%= link_to "", edit_timelog_path(timelog), class: "fas fa-edit", id: "edit-this-timelog", remote: true, data: {toggle: "modal"}, data: {target: "#edit-timelog"} %> </td>
         <td> <%= link_to "", timelog, method: :delete, data: {confirm: "Are you Sure?"}, remote: true, class: "fas fa-trash" %> </td>
        <% else %>

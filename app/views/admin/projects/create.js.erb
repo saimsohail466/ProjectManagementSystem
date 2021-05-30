@@ -1,5 +1,6 @@
 <% if @project.errors.blank? %>
   $('#add_new_project').modal('toggle');
+  $('.modal-backdrop').remove();
   $('.projects').append("<%= j render 'project_row', project: @project %>");
   $('.project_added').html("Project created successfully..");
   $('.project_added').show();

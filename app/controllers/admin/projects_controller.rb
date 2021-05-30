@@ -31,7 +31,7 @@ class Admin::ProjectsController < ApplicationController
 
   def assign_members
     members = params[:users][:user_ids]
-
+    
     members.each do |user_id|
       @project.activeprojects.create(user_id: user_id)
     end
