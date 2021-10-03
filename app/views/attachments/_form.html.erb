@@ -1,7 +1,7 @@
 <%= form_with model: [@project.attachments.new], remote: true, id: "attachment-form"  do |f| %>
     <div>
       <%= f.label :attachment_file %>
-      <%= f.file_field :attachment_file %>
+      <%= f.file_field :attachment_file, class: "btn btn-dark" %>
     </div>
 
     <div>
@@ -9,6 +9,6 @@
     </div>
 
     <div>
-      <%= f.submit %>
+      <%= f.submit class: "btn btn-dark mt-1"%>
     </div>
 <% end %>

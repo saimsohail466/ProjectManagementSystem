@@ -18,10 +18,6 @@
       <h6> <strong> Total Hours Spent </strong> <%= @project.timelogs.sum(:working_hours) %> </h6>
       <% unless current_user.employee? %>
           <%= link_to "Add Members", new_members_path(@project) , class: "btn btn-dark" %>
-          <%= link_to "Add Payment", new_project_payment_path(@project), class: "btn btn-dark" %>
-          <a href="" data-toggle="modal" data-target="#new_timelog" class="btn btn-dark">
-            New Timelog
-          </a>
       <% end %>
       <div class="mt-2">
         <p class="alert alert-success attachment-success" style="display: none;"></p>

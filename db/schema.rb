@@ -23,39 +23,41 @@ ActiveRecord::Schema.define(version: 2021_05_25_080158) do
   end
 
   create_table "attachments", force: :cascade do |t|
-    t.string "attachment_file"
-    t.integer "project_id"
+    t.text "attachment_file"
+    t.bigint "project_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["project_id"], name: "index_attachments_on_project_id"
   end
 
   create_table "clients", force: :cascade do |t|
-    t.string "firstname"
-    t.string "lastname"
-    t.string "email"
-    t.string "street"
-    t.string "city"
-    t.string "country"
-    t.integer "user_id"
+    t.text "firstname"
+    t.text "lastname"
+    t.text "email"
+    t.text "street"
+    t.text "city"
+    t.text "country"
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_clients_on_user_id"
   end
 
   create_table "comments", force: :cascade do |t|
-    t.string "comment"
+    t.text "comment"
     t.string "commentable_type"
-    t.integer "commentable_id"
+    t.bigint "commentable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "user_id"
+    t.bigint "user_id"
     t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
   create_table "payments", force: :cascade do |t|
-    t.integer "project_id"
+    t.bigint "project_id"
     t.decimal "amount"
-    t.string "title"
+    t.text "title"
     t.text "description"
     t.integer "payment_type"
     t.datetime "created_at", null: false
@@ -64,23 +66,23 @@ ActiveRecord::Schema.define(version: 2021_05_25_080158) do
   end
 
   create_table "projects", force: :cascade do |t|
-    t.string "title"
+    t.text "title"
     t.text "description"
     t.text "question"
     t.date "start_date"
     t.date "deadline"
-    t.integer "client_id"
+    t.bigint "client_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["client_id"], name: "index_projects_on_client_id"
   end
 
   create_table "timelogs", force: :cascade do |t|
-    t.integer "project_id"
-    t.string "date_of_log"
-    t.integer "user_id"
+    t.bigint "project_id"
+    t.text "date_of_log"
+    t.bigint "user_id"
     t.integer "working_hours"
-    t.string "task_name"
+    t.text "task_name"
     t.text "task_description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -89,17 +91,17 @@ ActiveRecord::Schema.define(version: 2021_05_25_080158) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "email"
-    t.string "encrypted_password", default: "", null: false
-    t.string "reset_password_token"
+    t.text "email"
+    t.text "encrypted_password", default: "", null: false
+    t.text "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.string "firstname"
-    t.string "lastname"
-    t.string "contact"
-    t.string "street"
-    t.string "city"
-    t.string "country"
+    t.text "firstname"
+    t.text "lastname"
+    t.text "contact"
+    t.text "street"
+    t.text "city"
+    t.text "country"
     t.integer "status", default: 1
     t.integer "type_of", default: 2
     t.datetime "created_at", null: false
@@ -113,4 +115,11 @@ ActiveRecord::Schema.define(version: 2021_05_25_080158) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "attachments", "projects"
+  add_foreign_key "clients", "users"
+  add_foreign_key "comments", "users"
+  add_foreign_key "payments", "projects"
+  add_foreign_key "projects", "clients"
+  add_foreign_key "timelogs", "projects"
+  add_foreign_key "timelogs", "users"
 end

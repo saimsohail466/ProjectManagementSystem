@@ -2,9 +2,9 @@ class Project < ApplicationRecord
   has_many :timelogs, dependent: :destroy
   has_many :payments, dependent: :destroy
   has_many :comments, as: :commentable, dependent: :destroy
-  has_many :activeprojects
-  has_many :users, through: :activeprojects
-  has_many :attachments
+  has_many :activeprojects, dependent: :destroy
+  has_many :users, through: :activeprojects, dependent: :destroy
+  has_many :attachments, dependent: :destroy
   
   belongs_to :client
   

@@ -12,6 +12,6 @@ class Payment < ApplicationRecord
   def check_amount_value
     if self.amount <= 0.0
       errors.add(:amount, "should be positive..")
-    end     
+    end
   end
 end

@@ -67,7 +67,7 @@ class Admin::ProjectsController < ApplicationController
   end
 
   def fetch_members
-    employees = User.where(type_of: 'employee')
+    employees = User.all
     @users = []
     if @project.users.blank?
       @users = employees

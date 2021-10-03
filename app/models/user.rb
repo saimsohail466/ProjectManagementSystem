@@ -10,7 +10,7 @@ class User < ApplicationRecord
   has_many :clients, dependent: :destroy
   has_many :timelogs, dependent: :destroy
   has_many :comments, dependent: :destroy
-  has_many :activeprojects
+  has_many :activeprojects, dependent: :destroy
   has_many :projects, through: :activeprojects, dependent: :destroy
 
   before_validation :normalize_text, on: [:create, :update]
